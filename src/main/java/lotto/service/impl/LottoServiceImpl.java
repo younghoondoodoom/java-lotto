@@ -19,11 +19,15 @@ public class LottoServiceImpl implements LottoService {
         }
         List<Lotto> result = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            List<Integer> numbers = Randoms.pickUniqueNumbersInRange(LottoInformation.START.value(),
-                LottoInformation.END.value(), LottoInformation.SIZE.value());
-            numbers.sort(Comparator.naturalOrder());
-            result.add(new Lotto(numbers));
+            result.add(createLotto());
         }
         return result;
+    }
+
+    private Lotto createLotto() {
+        List<Integer> numbers = Randoms.pickUniqueNumbersInRange(LottoInformation.START.value(),
+            LottoInformation.END.value(), LottoInformation.SIZE.value());
+        numbers.sort(Comparator.naturalOrder());
+        return new Lotto(numbers);
     }
 }
