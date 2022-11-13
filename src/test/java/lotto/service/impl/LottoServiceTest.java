@@ -12,7 +12,7 @@ class LottoServiceTest {
     private final LottoService lottoService = new LottoServiceImpl();
 
     @Test
-    public void createLottos() {
+    public void createLottosSuccess() {
         //given
         int size = 5;
 
@@ -38,5 +38,17 @@ class LottoServiceTest {
                 org.junit.jupiter.api.Assertions.fail();
             }
         }
+    }
+
+    @Test
+    public void createLottoFailure() {
+        //given
+        int size = 0;
+
+        //when
+        //then
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class,
+            () -> lottoService.createLottos(size)
+        );
     }
 }
