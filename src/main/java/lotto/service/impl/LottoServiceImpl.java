@@ -43,8 +43,9 @@ public class LottoServiceImpl implements LottoService {
 
 
     private Lotto createLotto() {
-        List<Integer> numbers = Randoms.pickUniqueNumbersInRange(LottoInformation.START.value(),
+        List<Integer> makeNumbers = Randoms.pickUniqueNumbersInRange(LottoInformation.START.value(),
             LottoInformation.END.value(), LottoInformation.SIZE.value());
+        ArrayList<Integer> numbers = new ArrayList<>(makeNumbers);
         numbers.sort(Comparator.naturalOrder());
         return new Lotto(numbers);
     }
