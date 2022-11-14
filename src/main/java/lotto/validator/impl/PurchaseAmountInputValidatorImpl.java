@@ -1,24 +1,23 @@
 package lotto.validator.impl;
 
-import java.util.Objects;
 import lotto.type.ErrorCode;
 import lotto.type.LottoInformation;
-import lotto.util.log.LottoLogger;
 import lotto.validator.integrated.PurchaseAmountInputValidator;
 
 public class PurchaseAmountInputValidatorImpl implements PurchaseAmountInputValidator {
 
     @Override
-    public boolean validate(String target) {
-        if (!LottoLogger.validationWithErrorLog(isNumeric(target), ErrorCode.NON_NUMERIC_VALUE)) {
-            return false;
+    public void validate(String target) throws IllegalArgumentException {
+        if (!isNumeric(target)) {
+            throw new IllegalArgumentException(ErrorCode.NON_NUMERIC_VALUE.getMessage());
         }
         Long targetNumber = parseTargetToLong(target);
-        return LottoLogger.validationWithErrorLog(targetNumber != null, ErrorCode.TOO_BIG_OR_TOO_SMALL_VALUE)
-            && LottoLogger.validationWithErrorLog(isInRange(Objects.requireNonNull(targetNumber), 1L, Long.MAX_VALUE),
-            ErrorCode.TOO_BIG_OR_TOO_SMALL_VALUE)
-            && LottoLogger.validationWithErrorLog(isDividedBySmallestUnit(targetNumber),
-            ErrorCode.COULD_NOT_DIVIDE_BY_SMALLEST_UNIT);
+        if (targetNumber == null || !isInRange(targetNumber, 1L, Long.MAX_VALUE)) {
+            throw new IllegalArgumentException(ErrorCode.TOO_BIG_OR_TOO_SMALL_VALUE.getMessage());
+        }
+        if (!isDividedBySmallestUnit(targetNumber)) {
+            throw new IllegalArgumentException(ErrorCode.COULD_NOT_DIVIDE_BY_SMALLEST_UNIT.getMessage());
+        }
     }
 
     @Override

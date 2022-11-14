@@ -4,30 +4,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lotto.type.ErrorCode;
 import lotto.type.LottoInformation;
-import lotto.util.log.LottoLogger;
 import lotto.validator.integrated.WinningNumberInputValidator;
 
 public class WinningNumberInputValidatorImpl implements WinningNumberInputValidator {
 
     @Override
-    public boolean validate(List<String> targets) {
+    public void validate(List<String> targets) throws IllegalArgumentException {
         if (validateNumeric(targets)) {
-            return false;
+            throw new IllegalArgumentException(ErrorCode.NON_NUMERIC_VALUE.getMessage());
         }
         List<Integer> targetNumbers = parseTargetsToInteger(targets);
         if (validateRange(targetNumbers)) {
-            return false;
+            throw new IllegalArgumentException(ErrorCode.TOO_BIG_OR_TOO_SMALL_VALUE.getMessage());
         }
-        return LottoLogger.validationWithErrorLog(isValidSize(targetNumbers, LottoInformation.SIZE.value()),
-            ErrorCode.LOTTO_SIZE_ERROR)
-            && LottoLogger.validationWithErrorLog(isDuplicate(targetNumbers), ErrorCode.DUPLICATE_ERROR);
+        if (!isValidSize(targetNumbers, LottoInformation.SIZE.value())) {
+            throw new IllegalArgumentException(ErrorCode.LOTTO_SIZE_ERROR.getMessage());
+        }
+        if (!isDuplicate(targetNumbers)) {
+            throw new IllegalArgumentException(ErrorCode.DUPLICATE_ERROR.getMessage());
+        }
     }
 
     private boolean validateRange(List<Integer> targetNumbers) {
         for (Integer targetNumber : targetNumbers) {
-            if (!LottoLogger.validationWithErrorLog(
-                isInRange(targetNumber, LottoInformation.START.value(), LottoInformation.END.value()),
-                ErrorCode.TOO_BIG_OR_TOO_SMALL_VALUE)) {
+            if (!isInRange(targetNumber, LottoInformation.START.value(), LottoInformation.END.value())) {
                 return true;
             }
         }
@@ -36,7 +36,7 @@ public class WinningNumberInputValidatorImpl implements WinningNumberInputValida
 
     private boolean validateNumeric(List<String> targets) {
         for (String target : targets) {
-            if (!LottoLogger.validationWithErrorLog(isNumeric(target), ErrorCode.NON_NUMERIC_VALUE)) {
+            if (!isNumeric(target)) {
                 return true;
             }
         }

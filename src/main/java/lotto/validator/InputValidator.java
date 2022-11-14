@@ -2,5 +2,5 @@ package lotto.validator;
 
 public interface InputValidator<T> {
 
-    boolean validate(T target);
+    void validate(T target) throws IllegalArgumentException;
 }
