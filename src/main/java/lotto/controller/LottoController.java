@@ -44,9 +44,7 @@ public class LottoController {
 
     private long getPurchaseAmount() {
         String purchaseAmountInput = LottoInputView.inputPurchaseAmount();
-        if (!purchaseAmountInputValidator.validate(purchaseAmountInput)) {
-            throw new IllegalArgumentException();
-        }
+        purchaseAmountInputValidator.validate(purchaseAmountInput);
         return Long.parseLong(purchaseAmountInput);
     }
 
@@ -58,17 +56,13 @@ public class LottoController {
     private List<Integer> getWinningNumbers() {
         String winningNumbersInput = LottoInputView.inputWinningNumbers();
         List<String> winningNumbers = Arrays.stream(winningNumbersInput.split(",")).collect(Collectors.toList());
-        if (!winningNumberInputValidator.validate(winningNumbers)) {
-            throw new IllegalArgumentException();
-        }
+        winningNumberInputValidator.validate(winningNumbers);
         return winningNumbers.stream().map(Integer::parseInt).collect(Collectors.toList());
     }
 
     private int getBonusNumber() {
         String bonusNumberInput = LottoInputView.inputBonusNumber();
-        if (!bonusNumberInputValidator.validate(bonusNumberInput)) {
-            throw new IllegalArgumentException();
-        }
+        bonusNumberInputValidator.validate(bonusNumberInput);
         return Integer.parseInt(bonusNumberInput);
     }
 

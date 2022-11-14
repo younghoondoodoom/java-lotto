@@ -10,15 +10,13 @@ import lotto.service.LottoService;
 import lotto.type.ErrorCode;
 import lotto.type.LottoInformation;
 import lotto.type.LottoStandard;
-import lotto.util.log.LottoLogger;
 
 public class LottoServiceImpl implements LottoService {
 
     @Override
     public List<Lotto> createLottos(int size) {
         if (size <= 0) {
-            LottoLogger.error(ErrorCode.MINIMUM_SIZE_CREATE_ERROR);
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorCode.MINIMUM_SIZE_CREATE_ERROR.getMessage());
         }
         List<Lotto> result = new ArrayList<>();
         for (int i = 0; i < size; i++) {
