@@ -1,5 +1,9 @@
 package lotto.type;
 
+import java.util.Arrays;
+import java.util.List;
+import lotto.domain.Lotto;
+
 public enum LottoStandard {
     FIRST(6, false, 2_000_000_000L),
     SECOND(5, true, 30_000_000L),
@@ -24,5 +28,34 @@ public enum LottoStandard {
 
     public long getPrize() {
         return prize;
+    }
+
+    public static LottoStandard judge(Lotto lotto, List<Integer> winningNumbers, int bonusNumber) {
+        int matchCount = judgeMatchCount(lotto, winningNumbers);
+        boolean bonus = judgeBonus(lotto, bonusNumber);
+        return findByMathCountAndBonus(matchCount, bonus);
+    }
+
+    public static LottoStandard findByMathCountAndBonus(int matchCount, boolean bonus) {
+        if (matchCount == 5) {
+            return Arrays.stream(LottoStandard.values())
+                .filter(lottoStandard -> lottoStandard.matchCount == matchCount)
+                .filter(lottoStandard -> lottoStandard.bonus == bonus)
+                .findAny()
+                .orElse(NOTHING);
+        }
+        return Arrays.stream(LottoStandard.values())
+            .filter(lottoStandard -> lottoStandard.matchCount == matchCount)
+            .findAny()
+            .orElse(NOTHING);
+    }
+
+    private static int judgeMatchCount(Lotto lotto, List<Integer> winningNumbers) {
+        return (int) winningNumbers.stream().filter(winningNumber -> lotto.getNumbers().contains(winningNumber))
+            .count();
+    }
+
+    private static boolean judgeBonus(Lotto lotto, int bonusNumber) {
+        return lotto.getNumbers().contains(bonusNumber);
     }
 }
