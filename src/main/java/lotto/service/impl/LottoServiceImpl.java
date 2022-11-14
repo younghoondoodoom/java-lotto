@@ -17,7 +17,7 @@ public class LottoServiceImpl implements LottoService {
     @Override
     public List<Lotto> createLottos(int size) {
         if (size <= 0) {
-            LottoLogger.error(ErrorCode.LOTTO_SIZE_ERROR);
+            LottoLogger.error(ErrorCode.MINIMUM_SIZE_CREATE_ERROR);
             throw new IllegalArgumentException();
         }
         List<Lotto> result = new ArrayList<>();
