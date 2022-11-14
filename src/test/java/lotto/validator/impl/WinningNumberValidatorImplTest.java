@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class WinningNumberValidatorImplTest {
 
-    private final WinningNumberInputValidator validator = new WinningNumberValidatorImpl();
+    private final WinningNumberInputValidator validator = new WinningNumberInputValidatorImpl();
 
     @Test
     public void isNumericFailure() {

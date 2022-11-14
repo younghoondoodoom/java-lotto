@@ -7,7 +7,7 @@ import lotto.type.LottoInformation;
 import lotto.util.log.LottoLogger;
 import lotto.validator.integrated.WinningNumberInputValidator;
 
-public class WinningNumberValidatorImpl implements WinningNumberInputValidator {
+public class WinningNumberInputValidatorImpl implements WinningNumberInputValidator {
 
     @Override
     public boolean validate(List<String> targets) {
