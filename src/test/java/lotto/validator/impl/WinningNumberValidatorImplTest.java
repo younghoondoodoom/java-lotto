@@ -1,6 +1,7 @@
 package lotto.validator.impl;
 
 import java.util.List;
+import lotto.type.ErrorCode;
 import lotto.validator.integrated.WinningNumberInputValidator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,10 +16,12 @@ class WinningNumberValidatorImplTest {
         List<String> wrongTarget = List.of("a", "b");
 
         //when
-        boolean result = validator.validate(wrongTarget);
-
         //then
-        Assertions.assertThat(result).isFalse();
+        IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> validator.validate(wrongTarget)
+        );
+        Assertions.assertThat(exception.getMessage()).isEqualTo(ErrorCode.NON_NUMERIC_VALUE.getMessage());
     }
 
     @Test
@@ -28,12 +31,17 @@ class WinningNumberValidatorImplTest {
         List<String> wrongTarget2 = List.of("46");
 
         //when
-        boolean result1 = validator.validate(wrongTarget1);
-        boolean result2 = validator.validate(wrongTarget2);
-
         //then
-        Assertions.assertThat(result1).isFalse();
-        Assertions.assertThat(result2).isFalse();
+        IllegalArgumentException exception1 = org.junit.jupiter.api.Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> validator.validate(wrongTarget1)
+        );
+        IllegalArgumentException exception2 = org.junit.jupiter.api.Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> validator.validate(wrongTarget2)
+        );
+        Assertions.assertThat(exception1.getMessage()).isEqualTo(ErrorCode.TOO_BIG_OR_TOO_SMALL_VALUE.getMessage());
+        Assertions.assertThat(exception2.getMessage()).isEqualTo(ErrorCode.TOO_BIG_OR_TOO_SMALL_VALUE.getMessage());
     }
 
     @Test
@@ -42,10 +50,12 @@ class WinningNumberValidatorImplTest {
         List<String> wrongTarget = List.of("1");
 
         //when
-        boolean result = validator.validate(wrongTarget);
-
         //then
-        Assertions.assertThat(result).isFalse();
+        IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> validator.validate(wrongTarget)
+        );
+        Assertions.assertThat(exception.getMessage()).isEqualTo(ErrorCode.LOTTO_SIZE_ERROR.getMessage());
     }
 
     @Test
@@ -55,12 +65,16 @@ class WinningNumberValidatorImplTest {
         List<String> wrongTarget2 = List.of("1", "2", "3", "4", "5", "5");
 
         //when
-        boolean result1 = validator.validate(wrongTarget1);
-        boolean result2 = validator.validate(wrongTarget2);
-
-        //then
-        Assertions.assertThat(result1).isFalse();
-        Assertions.assertThat(result2).isFalse();
+        IllegalArgumentException exception1 = org.junit.jupiter.api.Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> validator.validate(wrongTarget1)
+        );
+        IllegalArgumentException exception2 = org.junit.jupiter.api.Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> validator.validate(wrongTarget2)
+        );
+        Assertions.assertThat(exception1.getMessage()).isEqualTo(ErrorCode.DUPLICATE_ERROR.getMessage());
+        Assertions.assertThat(exception2.getMessage()).isEqualTo(ErrorCode.DUPLICATE_ERROR.getMessage());
     }
 
     @Test
@@ -70,11 +84,9 @@ class WinningNumberValidatorImplTest {
         List<String> rightTarget2 = List.of("45", "44", "43", "42", "41", "40");
 
         //when
-        boolean result1 = validator.validate(rightTarget1);
-        boolean result2 = validator.validate(rightTarget2);
+        validator.validate(rightTarget1);
+        validator.validate(rightTarget2);
 
         //then
-        Assertions.assertThat(result1).isTrue();
-        Assertions.assertThat(result2).isTrue();
     }
 }

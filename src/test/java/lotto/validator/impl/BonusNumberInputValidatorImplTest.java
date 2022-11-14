@@ -1,5 +1,6 @@
 package lotto.validator.impl;
 
+import lotto.type.ErrorCode;
 import lotto.type.LottoInformation;
 import lotto.validator.integrated.BonusNumberInputValidator;
 import org.assertj.core.api.Assertions;
@@ -15,10 +16,12 @@ class BonusNumberInputValidatorImplTest {
         String wrongTarget = "wrong";
 
         //when
-        boolean result = validator.validate(wrongTarget);
-
         //then
-        Assertions.assertThat(result).isFalse();
+        IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> validator.validate(wrongTarget)
+        );
+        Assertions.assertThat(exception.getMessage()).isEqualTo(ErrorCode.NON_NUMERIC_VALUE.getMessage());
     }
 
     @Test
@@ -28,12 +31,17 @@ class BonusNumberInputValidatorImplTest {
         String wrongTarget2 = String.valueOf(LottoInformation.END.value() + 1);
 
         //when
-        boolean result1 = validator.validate(wrongTarget1);
-        boolean result2 = validator.validate(wrongTarget2);
-
         //then
-        Assertions.assertThat(result1).isFalse();
-        Assertions.assertThat(result2).isFalse();
+        IllegalArgumentException exception1 = org.junit.jupiter.api.Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> validator.validate(wrongTarget1)
+        );
+        IllegalArgumentException exception2 = org.junit.jupiter.api.Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> validator.validate(wrongTarget2)
+        );
+        Assertions.assertThat(exception1.getMessage()).isEqualTo(ErrorCode.TOO_BIG_OR_TOO_SMALL_VALUE.getMessage());
+        Assertions.assertThat(exception2.getMessage()).isEqualTo(ErrorCode.TOO_BIG_OR_TOO_SMALL_VALUE.getMessage());
     }
 
     @Test
@@ -43,11 +51,8 @@ class BonusNumberInputValidatorImplTest {
         String rightTarget2 = String.valueOf(LottoInformation.END.value());
 
         //when
-        boolean result1 = validator.validate(rightTarget1);
-        boolean result2 = validator.validate(rightTarget2);
-
+        validator.validate(rightTarget1);
+        validator.validate(rightTarget2);
         //then
-        Assertions.assertThat(result1).isTrue();
-        Assertions.assertThat(result2).isTrue();
     }
 }
