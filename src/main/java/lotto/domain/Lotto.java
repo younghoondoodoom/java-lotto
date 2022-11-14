@@ -21,4 +21,19 @@ public class Lotto {
     public List<Integer> getNumbers() {
         return numbers;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < numbers.size(); i++) {
+            sb.append(numbers.get(i));
+            if (i == numbers.size() - 1) {
+                sb.append("]");
+                continue;
+            }
+            sb.append(", ");
+        }
+        return sb.toString();
+    }
 }
