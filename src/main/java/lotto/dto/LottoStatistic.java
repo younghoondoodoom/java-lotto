@@ -1,6 +1,7 @@
 package lotto.dto;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 import lotto.type.LottoStandard;
@@ -9,6 +10,7 @@ public class LottoStatistic {
 
     private final Map<LottoStandard, Integer> resultMap;
     private BigDecimal yield;
+    private static final int DECIMAL_POINT = 1;
 
     public LottoStatistic() {
         resultMap = new HashMap<>();
@@ -23,5 +25,15 @@ public class LottoStatistic {
 
     public BigDecimal getYield() {
         return yield;
+    }
+
+    public void addLottoStandard(LottoStandard lottoStandard) {
+        resultMap.replace(lottoStandard, resultMap.get(lottoStandard) + 1);
+    }
+
+    public void calculateYield(long purchaseAmount, long totalPrize) {
+        this.yield = BigDecimal.valueOf(totalPrize)
+            .multiply(BigDecimal.valueOf(100L))
+            .divide(BigDecimal.valueOf(purchaseAmount), DECIMAL_POINT, RoundingMode.HALF_UP);
     }
 }
