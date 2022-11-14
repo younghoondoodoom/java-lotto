@@ -7,6 +7,7 @@ import java.util.List;
 import lotto.domain.Lotto;
 import lotto.dto.LottoStatistic;
 import lotto.service.LottoService;
+import lotto.type.ErrorCode;
 import lotto.type.LottoInformation;
 import lotto.type.LottoStandard;
 import lotto.util.log.LottoLogger;
@@ -16,7 +17,7 @@ public class LottoServiceImpl implements LottoService {
     @Override
     public List<Lotto> createLottos(int size) {
         if (size <= 0) {
-            LottoLogger.error("Lotto는 최소 1개 이상만 발행할 수 있습니다.");
+            LottoLogger.error(ErrorCode.LOTTO_SIZE_ERROR);
             throw new IllegalArgumentException();
         }
         List<Lotto> result = new ArrayList<>();

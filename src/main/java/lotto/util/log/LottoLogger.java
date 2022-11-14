@@ -1,7 +1,9 @@
 package lotto.util.log;
 
+import lotto.type.ErrorCode;
+
 public class LottoLogger {
-    public static void error(String message) {
-        System.out.println("[ERROR] " + message);
+    public static void error(ErrorCode errorCode) {
+        System.out.println("[ERROR] " + errorCode.getMessage());
     }
 }
