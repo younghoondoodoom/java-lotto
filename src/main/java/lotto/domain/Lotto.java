@@ -36,30 +36,8 @@ public class Lotto {
         if (numbers.size() != LottoInformation.SIZE.value()) {
             throw new IllegalArgumentException(ErrorCode.LOTTO_SIZE_ERROR.getMessage());
         }
-        if (!isDuplicate(numbers)) {
+        if (numbers.size() != numbers.stream().distinct().count()) {
             throw new IllegalArgumentException(ErrorCode.DUPLICATE_ERROR.getMessage());
         }
-    }
-
-    private boolean isDuplicate(final List<Integer> target) {
-        for (int i = 0; i < target.size(); i++) {
-            Integer cur = target.get(i);
-            if (isDup(target, cur, i)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean isDup(final List<Integer> target, final Integer cur, final int curIdx) {
-        for (int i = 0; i < target.size(); i++) {
-            if (curIdx == i) {
-                continue;
-            }
-            if (target.get(i).equals(cur)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
