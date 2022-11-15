@@ -33,10 +33,10 @@ public enum LottoStandard {
     public static LottoStandard judge(Lotto lotto, List<Integer> winningNumbers, int bonusNumber) {
         int matchCount = judgeMatchCount(lotto, winningNumbers);
         boolean bonus = judgeBonus(lotto, bonusNumber);
-        return findByMathCountAndBonus(matchCount, bonus);
+        return findByMatchCountAndBonus(matchCount, bonus);
     }
 
-    public static LottoStandard findByMathCountAndBonus(int matchCount, boolean bonus) {
+    public static LottoStandard findByMatchCountAndBonus(int matchCount, boolean bonus) {
         if (matchCount == 5) {
             return Arrays.stream(LottoStandard.values())
                 .filter(lottoStandard -> lottoStandard.matchCount == matchCount)
@@ -51,7 +51,8 @@ public enum LottoStandard {
     }
 
     private static int judgeMatchCount(Lotto lotto, List<Integer> winningNumbers) {
-        return (int) winningNumbers.stream().filter(winningNumber -> lotto.getNumbers().contains(winningNumber))
+        return (int) winningNumbers.stream()
+            .filter(winningNumber -> lotto.getNumbers().contains(winningNumber))
             .count();
     }
 

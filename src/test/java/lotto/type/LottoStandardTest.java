@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 class LottoStandardTest {
 
     @Test
-    public void findByMathCountAndBonus() {
+    public void findByMatchCountAndBonus() {
         //given
         int firstMatchCount = LottoStandard.FIRST.getMatchCount();
         int secondMatchCount = LottoStandard.SECOND.getMatchCount();
@@ -22,12 +22,12 @@ class LottoStandardTest {
         boolean thirdBonus = false;
 
         //when
-        LottoStandard first = LottoStandard.findByMathCountAndBonus(firstMatchCount, false);
-        LottoStandard second = LottoStandard.findByMathCountAndBonus(secondMatchCount, secondBonus);
-        LottoStandard third = LottoStandard.findByMathCountAndBonus(thirdMatchCount, thirdBonus);
-        LottoStandard fourth = LottoStandard.findByMathCountAndBonus(fourthMatchCount, false);
-        LottoStandard fifth = LottoStandard.findByMathCountAndBonus(fifthMatchCount, false);
-        LottoStandard nothing = LottoStandard.findByMathCountAndBonus(nothingMatchCount, false);
+        LottoStandard first = LottoStandard.findByMatchCountAndBonus(firstMatchCount, false);
+        LottoStandard second = LottoStandard.findByMatchCountAndBonus(secondMatchCount, secondBonus);
+        LottoStandard third = LottoStandard.findByMatchCountAndBonus(thirdMatchCount, thirdBonus);
+        LottoStandard fourth = LottoStandard.findByMatchCountAndBonus(fourthMatchCount, false);
+        LottoStandard fifth = LottoStandard.findByMatchCountAndBonus(fifthMatchCount, false);
+        LottoStandard nothing = LottoStandard.findByMatchCountAndBonus(nothingMatchCount, false);
 
         //then
         Assertions.assertThat(first).isEqualTo(LottoStandard.FIRST);
