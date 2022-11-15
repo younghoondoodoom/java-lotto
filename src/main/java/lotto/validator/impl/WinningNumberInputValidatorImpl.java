@@ -10,11 +10,11 @@ public class WinningNumberInputValidatorImpl implements WinningNumberInputValida
 
     @Override
     public void validate(List<String> targets) throws IllegalArgumentException {
-        if (validateNumeric(targets)) {
+        if (!isAllNumeric(targets)) {
             throw new IllegalArgumentException(ErrorCode.NON_NUMERIC_VALUE.getMessage());
         }
         List<Integer> targetNumbers = parseTargetsToInteger(targets);
-        if (validateRange(targetNumbers)) {
+        if (!isAllInRange(targetNumbers)) {
             throw new IllegalArgumentException(ErrorCode.TOO_BIG_OR_TOO_SMALL_VALUE.getMessage());
         }
         if (!isValidSize(targetNumbers, LottoInformation.SIZE.value())) {
@@ -25,22 +25,23 @@ public class WinningNumberInputValidatorImpl implements WinningNumberInputValida
         }
     }
 
-    private boolean validateRange(List<Integer> targetNumbers) {
-        for (Integer targetNumber : targetNumbers) {
-            if (!isInRange(targetNumber, LottoInformation.START.value(), LottoInformation.END.value())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean validateNumeric(List<String> targets) {
+    private boolean isAllNumeric(List<String> targets) {
         for (String target : targets) {
             if (!isNumeric(target)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
+    }
+
+    private boolean isAllInRange(List<Integer> targetNumbers) {
+        for (Integer targetNumber : targetNumbers) {
+            if (!isInRange(targetNumber, LottoInformation.START.value(),
+                LottoInformation.END.value())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private List<Integer> parseTargetsToInteger(List<String> targets) {
