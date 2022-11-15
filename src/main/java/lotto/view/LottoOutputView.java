@@ -19,7 +19,7 @@ public class LottoOutputView {
         }
     }
 
-    public static void outputLottoStatistic(LottoStatistic statistic) {
+    public static void outputLottoStatistic(final LottoStatistic statistic) {
         printLottoStatisticIntro();
         printLottoStatistic(statistic);
         printLottoStatisticYield(statistic);
@@ -31,32 +31,36 @@ public class LottoOutputView {
         System.out.println("---");
     }
 
-    private static void printLottoStatistic(LottoStatistic statistic) {
+    private static void printLottoStatistic(final LottoStatistic statistic) {
         List<LottoStandard> lottoStandards = Arrays.stream(LottoStandard.values())
             .sorted((o1, o2) -> (int) (o1.getPrize() - o2.getPrize()))
             .collect(Collectors.toList());
         printResultMap(statistic, lottoStandards);
     }
 
-    private static void printResultMap(LottoStatistic statistic,
-        List<LottoStandard> lottoStandards) {
+    private static void printResultMap(final LottoStatistic statistic,
+        final List<LottoStandard> lottoStandards) {
         for (LottoStandard lottoStandard : lottoStandards) {
             if (lottoStandard.equals(LottoStandard.NOTHING)) {
                 continue;
             }
             Integer result = statistic.getResultMap().get(lottoStandard);
-            System.out.print(lottoStandard.getMatchCount() + "개 일치");
-            if (lottoStandard.equals(LottoStandard.SECOND)) {
-                System.out.print(", 보너스 볼 일치");
-            }
-            formatter.applyPattern("###,###");
-            System.out.print(" (" + formatter.format(lottoStandard.getPrize()) + "원) - ");
-            System.out.print(result + "개");
-            System.out.println();
+            printResult(lottoStandard, result);
         }
     }
 
-    private static void printLottoStatisticYield(LottoStatistic statistic) {
+    private static void printResult(final LottoStandard lottoStandard, final Integer result) {
+        System.out.print(lottoStandard.getMatchCount() + "개 일치");
+        if (lottoStandard.equals(LottoStandard.SECOND)) {
+            System.out.print(", 보너스 볼 일치");
+        }
+        formatter.applyPattern("###,###");
+        System.out.print(" (" + formatter.format(lottoStandard.getPrize()) + "원) - ");
+        System.out.print(result + "개");
+        System.out.println();
+    }
+
+    private static void printLottoStatisticYield(final LottoStatistic statistic) {
         System.out.print("총 수익률은 ");
         formatter.applyPattern("###,###.0");
         System.out.print(formatter.format(statistic.getYield()) + "%입니다.");
