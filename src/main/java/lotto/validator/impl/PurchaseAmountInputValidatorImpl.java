@@ -7,11 +7,11 @@ import lotto.validator.integrated.PurchaseAmountInputValidator;
 public class PurchaseAmountInputValidatorImpl implements PurchaseAmountInputValidator {
 
     @Override
-    public void validate(String target) throws IllegalArgumentException {
+    public void validate(final String target) throws IllegalArgumentException {
         if (!isNumeric(target)) {
             throw new IllegalArgumentException(ErrorCode.NON_NUMERIC_VALUE.getMessage());
         }
-        Long targetNumber = parseTargetToLong(target);
+        final Long targetNumber = parseTargetToLong(target);
         if (targetNumber == null || !isInRange(targetNumber, 1L, Long.MAX_VALUE)) {
             throw new IllegalArgumentException(ErrorCode.TOO_BIG_OR_TOO_SMALL_VALUE.getMessage());
         }
@@ -22,11 +22,11 @@ public class PurchaseAmountInputValidatorImpl implements PurchaseAmountInputVali
     }
 
     @Override
-    public boolean isDividedBySmallestUnit(Long target) {
+    public boolean isDividedBySmallestUnit(final Long target) {
         return target % LottoInformation.SMALLEST_UNIT.value() == 0;
     }
 
-    private static Long parseTargetToLong(String target) {
+    private static Long parseTargetToLong(final String target) {
         long targetNumber;
         try {
             targetNumber = Long.parseLong(target);

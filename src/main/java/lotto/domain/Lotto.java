@@ -32,7 +32,7 @@ public class Lotto {
         return sb.toString();
     }
 
-    private void validate(List<Integer> numbers) {
+    private void validate(final List<Integer> numbers) {
         if (numbers.size() != LottoInformation.SIZE.value()) {
             throw new IllegalArgumentException(ErrorCode.LOTTO_SIZE_ERROR.getMessage());
         }

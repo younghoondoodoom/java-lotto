@@ -27,11 +27,11 @@ public class LottoStatistic {
         return yield;
     }
 
-    public void addLottoStandard(LottoStandard lottoStandard) {
+    public void addLottoStandard(final LottoStandard lottoStandard) {
         resultMap.replace(lottoStandard, resultMap.get(lottoStandard) + 1);
     }
 
-    public void calculateYield(long purchaseAmount, long totalPrize) {
+    public void calculateYield(final long purchaseAmount, final long totalPrize) {
         this.yield = BigDecimal.valueOf(totalPrize)
             .multiply(BigDecimal.valueOf(100L))
             .divide(BigDecimal.valueOf(purchaseAmount), DECIMAL_POINT, RoundingMode.HALF_UP);

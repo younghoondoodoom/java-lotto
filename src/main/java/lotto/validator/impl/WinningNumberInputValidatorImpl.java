@@ -9,7 +9,7 @@ import lotto.validator.integrated.WinningNumberInputValidator;
 public class WinningNumberInputValidatorImpl implements WinningNumberInputValidator {
 
     @Override
-    public void validate(List<String> targets) throws IllegalArgumentException {
+    public void validate(final List<String> targets) throws IllegalArgumentException {
         if (!isAllNumeric(targets)) {
             throw new IllegalArgumentException(ErrorCode.NON_NUMERIC_VALUE.getMessage());
         }
@@ -25,7 +25,7 @@ public class WinningNumberInputValidatorImpl implements WinningNumberInputValida
         }
     }
 
-    private boolean isAllNumeric(List<String> targets) {
+    private boolean isAllNumeric(final List<String> targets) {
         for (String target : targets) {
             if (!isNumeric(target)) {
                 return false;
@@ -34,7 +34,7 @@ public class WinningNumberInputValidatorImpl implements WinningNumberInputValida
         return true;
     }
 
-    private boolean isAllInRange(List<Integer> targetNumbers) {
+    private boolean isAllInRange(final List<Integer> targetNumbers) {
         for (Integer targetNumber : targetNumbers) {
             if (!isInRange(targetNumber, LottoInformation.START.value(),
                 LottoInformation.END.value())) {
@@ -44,7 +44,7 @@ public class WinningNumberInputValidatorImpl implements WinningNumberInputValida
         return true;
     }
 
-    private List<Integer> parseTargetsToInteger(List<String> targets) {
+    private List<Integer> parseTargetsToInteger(final List<String> targets) {
         return targets.stream().map(Integer::parseInt).collect(Collectors.toList());
     }
 }

@@ -14,7 +14,7 @@ import lotto.type.LottoStandard;
 public class LottoServiceImpl implements LottoService {
 
     @Override
-    public List<Lotto> createLottos(int size) {
+    public List<Lotto> createLottos(final int size) {
         if (size <= 0) {
             throw new IllegalArgumentException(ErrorCode.MINIMUM_SIZE_CREATE_ERROR.getMessage());
         }
@@ -26,8 +26,8 @@ public class LottoServiceImpl implements LottoService {
     }
 
     @Override
-    public LottoStatistic makeStatistic(List<Lotto> lottos, long purchaseAmount,
-        List<Integer> winningNumbers, int bonusNumber) {
+    public LottoStatistic makeStatistic(final List<Lotto> lottos, final long purchaseAmount,
+        final List<Integer> winningNumbers, final int bonusNumber) {
         LottoStatistic statistic = new LottoStatistic();
         long totalPrize = 0L;
         for (Lotto lotto : lottos) {

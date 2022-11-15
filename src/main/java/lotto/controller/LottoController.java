@@ -13,7 +13,7 @@ import lotto.validator.integrated.WinningNumberInputValidator;
 import lotto.view.LottoInputView;
 import lotto.view.LottoOutputView;
 
-public class LottoController {
+public final class LottoController {
 
     private final LottoService lottoService;
     private final BonusNumberInputValidator bonusNumberInputValidator;
@@ -50,7 +50,7 @@ public class LottoController {
         return Long.parseLong(purchaseAmountInput);
     }
 
-    private List<Lotto> getLottos(long purchaseAmount) {
+    private List<Lotto> getLottos(final long purchaseAmount) {
         int size = (int) (purchaseAmount / LottoInformation.SMALLEST_UNIT.value());
         return lottoService.createLottos(size);
     }

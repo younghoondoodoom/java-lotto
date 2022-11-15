@@ -7,7 +7,7 @@ import lotto.validator.integrated.BonusNumberInputValidator;
 public class BonusNumberInputValidatorImpl implements BonusNumberInputValidator {
 
     @Override
-    public void validate(String target) throws IllegalArgumentException {
+    public void validate(final String target) throws IllegalArgumentException {
         if (!isNumeric(target)) {
             throw new IllegalArgumentException(ErrorCode.NON_NUMERIC_VALUE.getMessage());
         }
