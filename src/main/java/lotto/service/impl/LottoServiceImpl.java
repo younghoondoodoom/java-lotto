@@ -26,8 +26,8 @@ public class LottoServiceImpl implements LottoService {
     }
 
     @Override
-    public LottoStatistic makeStatistic(List<Lotto> lottos, long purchaseAmount, List<Integer> winningNumbers,
-        int bonusNumber) {
+    public LottoStatistic makeStatistic(List<Lotto> lottos, long purchaseAmount,
+        List<Integer> winningNumbers, int bonusNumber) {
         LottoStatistic statistic = new LottoStatistic();
         long totalPrize = 0L;
         for (Lotto lotto : lottos) {

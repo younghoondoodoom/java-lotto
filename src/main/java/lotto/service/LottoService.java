@@ -8,5 +8,6 @@ public interface LottoService {
 
     List<Lotto> createLottos(int size);
 
-    LottoStatistic makeStatistic(List<Lotto> lottos, long purchaseAmount, List<Integer> winningNumbers, int bonusNumber);
+    LottoStatistic makeStatistic(List<Lotto> lottos, long purchaseAmount,
+        List<Integer> winningNumbers, int bonusNumber);
 }

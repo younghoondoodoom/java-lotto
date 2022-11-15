@@ -16,7 +16,8 @@ public class PurchaseAmountInputValidatorImpl implements PurchaseAmountInputVali
             throw new IllegalArgumentException(ErrorCode.TOO_BIG_OR_TOO_SMALL_VALUE.getMessage());
         }
         if (!isDividedBySmallestUnit(targetNumber)) {
-            throw new IllegalArgumentException(ErrorCode.COULD_NOT_DIVIDE_BY_SMALLEST_UNIT.getMessage());
+            throw new IllegalArgumentException(
+                ErrorCode.COULD_NOT_DIVIDE_BY_SMALLEST_UNIT.getMessage());
         }
     }
 

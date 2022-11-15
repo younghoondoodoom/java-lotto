@@ -20,7 +20,8 @@ public class LottoController {
     private final PurchaseAmountInputValidator purchaseAmountInputValidator;
     private final WinningNumberInputValidator winningNumberInputValidator;
 
-    public LottoController(LottoService lottoService, BonusNumberInputValidator bonusNumberInputValidator,
+    public LottoController(LottoService lottoService,
+        BonusNumberInputValidator bonusNumberInputValidator,
         PurchaseAmountInputValidator purchaseAmountInputValidator,
         WinningNumberInputValidator winningNumberInputValidator) {
         this.lottoService = lottoService;
@@ -38,7 +39,8 @@ public class LottoController {
         List<Integer> winningNumbers = getWinningNumbers();
         int bonusNumber = getBonusNumber();
 
-        LottoStatistic statistic = lottoService.makeStatistic(lottos, purchaseAmount, winningNumbers, bonusNumber);
+        LottoStatistic statistic = lottoService.makeStatistic(lottos, purchaseAmount,
+            winningNumbers, bonusNumber);
         LottoOutputView.outputLottoStatistic(statistic);
     }
 
@@ -55,7 +57,8 @@ public class LottoController {
 
     private List<Integer> getWinningNumbers() {
         String winningNumbersInput = LottoInputView.inputWinningNumbers();
-        List<String> winningNumbers = Arrays.stream(winningNumbersInput.split(",")).collect(Collectors.toList());
+        List<String> winningNumbers = Arrays.stream(winningNumbersInput.split(","))
+            .collect(Collectors.toList());
         winningNumberInputValidator.validate(winningNumbers);
         return winningNumbers.stream().map(Integer::parseInt).collect(Collectors.toList());
     }
